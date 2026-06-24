@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 
 interface RepProfile {
   id: string;
@@ -27,6 +26,12 @@ interface RepProfile {
   createdAt: string;
   user: { email: string };
 }
+
+const STATUS_COLORS: Record<string, string> = {
+  available: "bg-emerald-100 text-emerald-700",
+  busy: "bg-amber-100 text-amber-700",
+  offline: "bg-slate-100 text-slate-600",
+};
 
 export default function RepProfilePage() {
   const router = useRouter();
@@ -71,25 +76,21 @@ export default function RepProfilePage() {
     setSaving(true);
     setError("");
     setSuccess("");
-
     if (avatarFile) {
       const fd = new FormData();
       fd.append("avatar", avatarFile);
       await fetch("/api/rep/avatar", { method: "POST", body: fd });
     }
-
     const res = await fetch("/api/profile", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-
     setSaving(false);
     if (res.ok) {
       setSuccess("Profile updated!");
       setEditing(false);
       setAvatarFile(null);
-      // Refresh profile data
       fetch("/api/me").then(r => r.json()).then(d => {
         if (d.repProfile) setProfile({ ...d.repProfile, user: { email: d.email } });
       });
@@ -102,17 +103,12 @@ export default function RepProfilePage() {
 
   if (!profile) return <div className="max-w-2xl mx-auto px-4 py-12 text-center text-slate-400">Loading...</div>;
 
-  const statusColors: Record<string, string> = {
-    available: "bg-emerald-100 text-emerald-700",
-    busy: "bg-amber-100 text-amber-700",
-    offline: "bg-slate-100 text-slate-600",
-  };
-
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
       <div className="bg-[#0f2044] rounded-2xl p-5 mb-5 text-white">
-        <div className="flex items-center gap-4">
+        <div className="flex items-start gap-4">
+          {/* Avatar */}
           <div className="relative shrink-0">
             <div className="w-16 h-16 rounded-full bg-white/20 border-2 border-white/40 overflow-hidden flex items-center justify-center">
               {(avatarPreview || profile.avatarUrl)
@@ -120,30 +116,36 @@ export default function RepProfilePage() {
                 : <span className="text-white font-bold text-xl">{profile.fullName.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()}</span>}
             </div>
             {editing && (
-              <label className="absolute -bottom-1 -right-1 w-6 h-6 bg-white rounded-full flex items-center justify-center cursor-pointer shadow">
-                <span className="text-[#0f2044] text-xs">✏️</span>
+              <label className="absolute -bottom-1 -right-1 w-7 h-7 bg-white rounded-full flex items-center justify-center cursor-pointer shadow-md">
+                <span className="text-[#0f2044] text-sm leading-none">✏️</span>
                 <input type="file" accept="image/*" onChange={handleAvatarChange} className="hidden" />
               </label>
             )}
           </div>
+
+          {/* Name + badges */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-xl font-bold truncate">{profile.fullName}</h1>
-            <p className="text-blue-300 text-sm">{profile.user.email}</p>
-            <div className="flex items-center gap-2 mt-1 flex-wrap">
+            <h1 className="text-lg sm:text-xl font-bold truncate">{profile.fullName}</h1>
+            <p className="text-blue-300 text-xs sm:text-sm truncate">{profile.user.email}</p>
+            <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
               {profile.repCode && <span className="text-xs font-mono bg-white/10 px-2 py-0.5 rounded text-blue-200">{profile.repCode}</span>}
-              <span className="text-xs bg-white/10 px-2 py-0.5 rounded text-blue-200">Level {profile.trainingLevel}</span>
-              <span className={`text-xs px-2 py-0.5 rounded font-medium capitalize ${statusColors[profile.availabilityStatus] || "bg-slate-100 text-slate-600"}`}>
+              <span className="text-xs bg-white/10 px-2 py-0.5 rounded text-blue-200">Lvl {profile.trainingLevel}</span>
+              <span className={`text-xs px-2 py-0.5 rounded font-medium capitalize ${STATUS_COLORS[profile.availabilityStatus] || "bg-slate-100 text-slate-600"}`}>
                 {profile.availabilityStatus}
               </span>
             </div>
           </div>
-          {!editing && (
-            <Button size="sm" variant="outline" onClick={() => setEditing(true)}
-              className="shrink-0 border-white/30 text-white hover:bg-white/10">
-              Edit
-            </Button>
-          )}
         </div>
+
+        {/* Edit button — always visible, solid white */}
+        {!editing && (
+          <button
+            onClick={() => setEditing(true)}
+            className="mt-4 w-full bg-white text-[#0f2044] font-semibold text-sm py-2.5 rounded-xl hover:bg-blue-50 transition active:scale-[0.98]"
+          >
+            ✏️ Edit Profile
+          </button>
+        )}
       </div>
 
       {success && <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm px-4 py-3 rounded-xl mb-4">{success}</div>}
@@ -197,17 +199,17 @@ export default function RepProfilePage() {
                   <option value="offline">Offline</option>
                 </Select>
               </div>
-              <div className="flex gap-2 pt-2">
-                <Button onClick={handleSave} disabled={saving} className="flex-1">
+              <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                <Button onClick={handleSave} disabled={saving} className="flex-1 py-3">
                   {saving ? "Saving..." : "Save Changes"}
                 </Button>
-                <Button variant="outline" onClick={() => { setEditing(false); setAvatarFile(null); setAvatarPreview(null); }}>
+                <Button variant="outline" onClick={() => { setEditing(false); setAvatarFile(null); setAvatarPreview(null); }} className="sm:w-auto">
                   Cancel
                 </Button>
               </div>
             </>
           ) : (
-            <div className="space-y-3 text-sm">
+            <div className="space-y-0 divide-y divide-slate-100">
               <Row label="Full Name" value={profile.fullName} />
               <Row label="Phone" value={profile.phone} />
               <Row label="City" value={profile.city || "—"} />
@@ -228,9 +230,9 @@ export default function RepProfilePage() {
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex gap-3">
-      <span className="text-slate-400 w-32 shrink-0">{label}</span>
-      <span className="text-slate-800 flex-1">{value}</span>
+    <div className="py-2.5 flex flex-col sm:flex-row sm:items-start gap-0.5 sm:gap-3">
+      <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide sm:w-32 sm:shrink-0 sm:pt-0.5">{label}</span>
+      <span className="text-slate-800 text-sm flex-1">{value}</span>
     </div>
   );
 }

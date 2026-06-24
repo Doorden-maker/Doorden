@@ -91,22 +91,24 @@ export default function BusinessProfilePage() {
     <div className="max-w-2xl mx-auto px-4 py-6">
       {/* Header */}
       <div className="bg-[#0f2044] rounded-2xl p-5 mb-5 text-white">
-        <div className="flex items-center justify-between gap-4">
-          <div>
-            <h1 className="text-xl font-bold">{profile.businessName}</h1>
-            <p className="text-blue-300 text-sm">{profile.user.email}</p>
-            <p className="text-blue-200 text-sm mt-0.5">
-              {profile.serviceCategory && <span className="mr-2">{profile.serviceCategory}</span>}
-              {profile.businessCity && <span>{profile.businessCity}{profile.businessZip ? ` ${profile.businessZip}` : ""}</span>}
-            </p>
-          </div>
-          {!editing && (
-            <Button size="sm" variant="outline" onClick={() => setEditing(true)}
-              className="shrink-0 border-white/30 text-white hover:bg-white/10">
-              Edit
-            </Button>
-          )}
+        <div>
+          <h1 className="text-lg sm:text-xl font-bold">{profile.businessName}</h1>
+          <p className="text-blue-300 text-xs sm:text-sm truncate">{profile.user.email}</p>
+          <p className="text-blue-200 text-sm mt-0.5">
+            {profile.serviceCategory && <span className="mr-2">{profile.serviceCategory}</span>}
+            {profile.businessCity && <span>{profile.businessCity}{profile.businessZip ? ` ${profile.businessZip}` : ""}</span>}
+          </p>
         </div>
+
+        {/* Edit button — solid white, always visible */}
+        {!editing && (
+          <button
+            onClick={() => setEditing(true)}
+            className="mt-4 w-full bg-white text-[#0f2044] font-semibold text-sm py-2.5 rounded-xl hover:bg-blue-50 transition active:scale-[0.98]"
+          >
+            ✏️ Edit Profile
+          </button>
+        )}
       </div>
 
       {success && <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm px-4 py-3 rounded-xl mb-4">{success}</div>}
@@ -175,15 +177,17 @@ export default function BusinessProfilePage() {
                   <option value="4">Level 4 — Expert</option>
                 </Select>
               </div>
-              <div className="flex gap-2 pt-2">
-                <Button onClick={handleSave} disabled={saving} className="flex-1">
+              <div className="flex flex-col sm:flex-row gap-2 pt-2">
+                <Button onClick={handleSave} disabled={saving} className="flex-1 py-3">
                   {saving ? "Saving..." : "Save Changes"}
                 </Button>
-                <Button variant="outline" onClick={() => setEditing(false)}>Cancel</Button>
+                <Button variant="outline" onClick={() => setEditing(false)} className="sm:w-auto">
+                  Cancel
+                </Button>
               </div>
             </>
           ) : (
-            <div className="space-y-3 text-sm">
+            <div className="space-y-0 divide-y divide-slate-100">
               <Row label="Business Name" value={profile.businessName} />
               <Row label="Contact" value={profile.contactName} />
               <Row label="Phone" value={profile.phone} />
@@ -205,9 +209,9 @@ export default function BusinessProfilePage() {
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex gap-3">
-      <span className="text-slate-400 w-36 shrink-0">{label}</span>
-      <span className="text-slate-800 flex-1">{value}</span>
+    <div className="py-2.5 flex flex-col sm:flex-row sm:items-start gap-0.5 sm:gap-3">
+      <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide sm:w-36 sm:shrink-0 sm:pt-0.5">{label}</span>
+      <span className="text-slate-800 text-sm flex-1">{value}</span>
     </div>
   );
 }
