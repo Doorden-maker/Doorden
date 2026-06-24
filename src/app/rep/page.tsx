@@ -28,7 +28,7 @@ export default async function RepDashboard() {
     prisma.trainingContent.count({ where: { level: { lte: rep.trainingLevel } } }),
     prisma.repBusinessPartnership.findMany({
       where: { repId: rep.id },
-      include: { business: true },
+      include: { business: { include: { user: { select: { id: true } } } } },
       orderBy: { createdAt: "desc" },
     }),
   ]);
@@ -168,12 +168,18 @@ export default async function RepDashboard() {
               ) : (
                 <div className="space-y-2">
                   {acceptedPartnerships.slice(0, 5).map(p => (
-                    <div key={p.id} className="flex items-center justify-between bg-emerald-50 rounded-xl px-3 py-2">
-                      <div>
-                        <div className="font-semibold text-sm text-gray-800">{p.business.businessName}</div>
-                        <div className="text-xs text-gray-500">{p.business.serviceCategory}</div>
+                    <div key={p.id} className="bg-emerald-50 rounded-xl px-3 py-2">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div>
+                          <div className="font-semibold text-sm text-gray-800">{p.business.businessName}</div>
+                          <div className="text-xs text-gray-500">{p.business.serviceCategory}</div>
+                        </div>
+                        <span className="text-xs text-emerald-700 font-semibold">Active</span>
                       </div>
-                      <span className="text-xs text-emerald-700 font-semibold">Active</span>
+                      <div className="flex gap-1.5">
+                        <a href={`/business/${p.business.id}/view`} className="flex-1 text-center text-xs bg-white border border-slate-200 text-slate-600 font-medium py-1 rounded-lg hover:bg-slate-50 transition">View</a>
+                        <a href={`/messages?with=${p.business.user.id}`} className="flex-1 text-center text-xs bg-[#0f2044] text-white font-medium py-1 rounded-lg hover:bg-[#1a3360] transition">Message</a>
+                      </div>
                     </div>
                   ))}
                 </div>

@@ -22,7 +22,7 @@ export default async function AdminPayoutsPage() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold text-gray-900 mb-8">Rep Payouts</h1>
 
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <Card>
           <CardContent className="pt-6">
             <div className="text-2xl font-bold text-yellow-600">{formatCurrency(totalPending)}</div>

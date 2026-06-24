@@ -26,7 +26,7 @@ export default async function BusinessDashboard() {
     }),
     prisma.repBusinessPartnership.findMany({
       where: { businessId: biz.id },
-      include: { rep: true },
+      include: { rep: { include: { user: { select: { id: true } } } } },
       orderBy: { createdAt: "desc" },
     }),
   ]);
@@ -247,6 +247,39 @@ export default async function BusinessDashboard() {
                       <div className="text-xs text-emerald-600">Net: {formatCurrency(job.estimatedPrice * 0.82)}</div>
                       <div className="text-xs text-slate-400">{formatDate(job.createdAt)}</div>
                     </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Active partners list */}
+      {acceptedPartners.length > 0 && (
+        <div className="mb-5">
+          <h2 className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-indigo-500 inline-block" />
+            Active Reps ({acceptedPartners.length})
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {acceptedPartners.map(p => (
+              <Card key={p.id}>
+                <CardContent className="pt-3 pb-3">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-9 h-9 rounded-full bg-[#0f2044]/10 flex items-center justify-center overflow-hidden shrink-0">
+                      {p.rep.avatarUrl
+                        ? <img src={p.rep.avatarUrl} alt="" className="w-full h-full object-cover" />
+                        : <span className="text-[#0f2044] font-bold text-sm">{p.rep.fullName[0]}</span>}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-slate-900 text-sm truncate">{p.rep.fullName}</div>
+                      <div className="text-xs text-slate-400">Level {p.rep.trainingLevel} · {p.rep.serviceAreas.split(",")[0].trim()}</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Link href={`/rep/${p.rep.id}/view`} className="flex-1 text-center text-xs bg-slate-100 text-slate-700 font-medium py-1.5 rounded-lg hover:bg-slate-200 transition">View Profile</Link>
+                    <Link href={`/messages?with=${p.rep.user.id}`} className="flex-1 text-center text-xs bg-[#0f2044] text-white font-medium py-1.5 rounded-lg hover:bg-[#1a3360] transition">💬 Message</Link>
                   </div>
                 </CardContent>
               </Card>

@@ -15,6 +15,7 @@ export default async function BusinessBrowseRepsPage() {
       include: {
         jobs: { where: { businessId: biz.id, status: "commission_paid" }, select: { id: true } },
         _count: { select: { jobs: true } },
+        user: { select: { id: true } },
       },
       orderBy: { trainingLevel: "desc" },
     }),

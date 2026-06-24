@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -15,6 +16,7 @@ interface Rep {
   avatarUrl: string | null;
   jobs: { id: string }[];
   _count: { jobs: number };
+  user: { id: string };
 }
 
 interface Partnership {
@@ -147,27 +149,42 @@ export function BrowseReps({ reps, bizAreas, minRepLevel, partnerships }: Props)
                     <div><span className="text-xs font-medium text-gray-400 uppercase">Areas</span><p className="text-gray-700">{r.serviceAreas}</p></div>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100">
+                  <div className="pt-3 border-t border-slate-100 space-y-2">
                     {pStatus === "accepted" && (
-                      <span className="text-sm text-emerald-700 font-semibold bg-emerald-50 px-3 py-1.5 rounded-lg w-full block text-center">✓ Accepted Partner</span>
+                      <div className="flex gap-2">
+                        <Link href={`/rep/${r.id}/view`} className="flex-1 text-center text-sm bg-slate-100 text-slate-700 font-semibold py-2 rounded-lg hover:bg-slate-200 transition">View Profile</Link>
+                        <Link href={`/messages?with=${r.user.id}`} className="flex-1 text-center text-sm bg-[#0f2044] text-white font-semibold py-2 rounded-lg hover:bg-[#1a3360] transition">💬 Message</Link>
+                      </div>
                     )}
                     {pStatus === "pending_business" && (
-                      <span className="text-sm text-amber-700 font-semibold bg-amber-50 px-3 py-1.5 rounded-lg w-full block text-center">Invite Sent — Awaiting Rep</span>
+                      <div className="flex gap-2">
+                        <span className="flex-1 text-center text-sm text-amber-700 font-semibold bg-amber-50 px-3 py-2 rounded-lg">Invite Sent</span>
+                        <Link href={`/rep/${r.id}/view`} className="flex-1 text-center text-sm bg-slate-100 text-slate-700 font-semibold py-2 rounded-lg hover:bg-slate-200 transition">View Profile</Link>
+                      </div>
                     )}
                     {pStatus === "pending_rep" && (
-                      <span className="text-sm text-blue-700 bg-blue-50 px-3 py-1.5 rounded-lg w-full block text-center">Rep Requested — Review in Dashboard</span>
+                      <div className="flex gap-2">
+                        <span className="flex-1 text-center text-sm text-blue-700 bg-blue-50 px-3 py-2 rounded-lg">Requested — Review in Dashboard</span>
+                        <Link href={`/rep/${r.id}/view`} className="flex-1 text-center text-sm bg-slate-100 text-slate-700 font-semibold py-2 rounded-lg hover:bg-slate-200 transition">View</Link>
+                      </div>
                     )}
                     {pStatus === "rejected" && (
-                      <span className="text-sm text-red-600 bg-red-50 px-3 py-1.5 rounded-lg w-full block text-center">Request Declined</span>
+                      <div className="flex gap-2">
+                        <span className="flex-1 text-center text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">Declined</span>
+                        <Link href={`/rep/${r.id}/view`} className="flex-1 text-center text-sm bg-slate-100 text-slate-700 font-semibold py-2 rounded-lg hover:bg-slate-200 transition">View</Link>
+                      </div>
                     )}
                     {!pStatus && (
-                      <button
-                        onClick={() => requestPartnership(r.id)}
-                        disabled={requesting === r.id || !isQualified}
-                        className="w-full bg-[#0f2044] text-white py-2 rounded-lg text-sm font-semibold hover:bg-[#1a3360] transition disabled:opacity-50"
-                      >
-                        {requesting === r.id ? "Sending..." : !isQualified ? `Below your min level` : "Invite to Partner"}
-                      </button>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => requestPartnership(r.id)}
+                          disabled={requesting === r.id || !isQualified}
+                          className="flex-1 bg-[#0f2044] text-white py-2 rounded-lg text-sm font-semibold hover:bg-[#1a3360] transition disabled:opacity-50"
+                        >
+                          {requesting === r.id ? "Sending..." : !isQualified ? `Below min level` : "Invite to Partner"}
+                        </button>
+                        <Link href={`/rep/${r.id}/view`} className="flex-1 text-center text-sm bg-slate-100 text-slate-700 font-semibold py-2 rounded-lg hover:bg-slate-200 transition">View Profile</Link>
+                      </div>
                     )}
                   </div>
                 </CardContent>

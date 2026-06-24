@@ -38,7 +38,7 @@ export function AdminTrainingContentForm() {
   return (
     <form onSubmit={submit} className="border rounded-lg p-4 space-y-3 bg-gray-50">
       <h4 className="font-medium text-gray-900">Add Training Content</h4>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div className="space-y-1">
           <Label>Level</Label>
           <Select value={form.level} onChange={e => setForm(f => ({ ...f, level: e.target.value }))}>

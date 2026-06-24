@@ -12,7 +12,10 @@ export default async function RepBrowseBusinessesPage() {
   const [businesses, partnerships] = await Promise.all([
     prisma.businessProfile.findMany({
       where: { isActive: true },
-      include: { jobs: { where: { status: "commission_paid" }, select: { id: true } } },
+      include: {
+        jobs: { where: { status: "commission_paid" }, select: { id: true } },
+        user: { select: { id: true } },
+      },
       orderBy: { businessName: "asc" },
     }),
     prisma.repBusinessPartnership.findMany({
