@@ -1,0 +1,124 @@
+
+> doorden@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.9 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.27:3000
+- Environments: .env
+✓ Ready in 1588ms
+
+ GET / 200 in 1437ms (next.js: 527ms, application-code: 909ms)
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "192.168.0.27".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['192.168.0.27'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+ GET / 200 in 217ms (next.js: 15ms, application-code: 202ms)
+ GET /verify 200 in 224ms (next.js: 91ms, application-code: 133ms)
+ GET / 200 in 273ms (next.js: 16ms, application-code: 257ms)
+ GET /signup/rep 200 in 391ms (next.js: 104ms, application-code: 286ms)
+ GET /login 200 in 248ms (next.js: 121ms, application-code: 127ms)
+ GET /login?email=aidenkonopinski%40gmail.com&password=Tyler1313 200 in 214ms (next.js: 15ms, application-code: 199ms)
+ GET /login?email=aidenkonopinski%40gmail.com&password=tyler1313 200 in 146ms (next.js: 13ms, application-code: 133ms)
+ GET / 200 in 265ms (next.js: 34ms, application-code: 231ms)
+ GET /verify 200 in 456ms (next.js: 261ms, application-code: 196ms)
+ GET / 200 in 303ms (next.js: 14ms, application-code: 289ms)
+ GET /signup/rep 200 in 221ms (next.js: 19ms, application-code: 203ms)
+ GET /signup/rep?fullName=aiden+kono&phone=4405323857&email=aidenkonopinski%40gmail.ckm&password=tyler1313&serviceAreas=medina&description=hdhdbf 200 in 146ms (next.js: 12ms, application-code: 135ms)
+ GET /verify 200 in 98ms (next.js: 19ms, application-code: 79ms)
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior
+ GET / 200 in 138ms (next.js: 13ms, application-code: 125ms)
+ GET /login 200 in 75ms (next.js: 13ms, application-code: 62ms)
+ POST /api/auth/login 200 in 1469ms (next.js: 606ms, application-code: 863ms)
+ GET /rep 200 in 512ms (next.js: 130ms, application-code: 381ms)
+ GET /rep 200 in 229ms (next.js: 11ms, application-code: 219ms)
+ GET /api/notifications 200 in 273ms (next.js: 242ms, application-code: 31ms)
+ GET /rep/jobs/new 200 in 193ms (next.js: 129ms, application-code: 64ms)
+ GET /api/rep/profile 200 in 300ms (next.js: 270ms, application-code: 30ms)
+ GET /api/businesses 200 in 313ms (next.js: 171ms, application-code: 142ms)
+ GET /api/rep/profile 200 in 72ms (next.js: 10ms, application-code: 62ms)
+ GET /api/businesses 200 in 75ms (next.js: 29ms, application-code: 46ms)
+ GET /api/notifications 200 in 37ms (next.js: 7ms, application-code: 30ms)
+ GET /api/notifications 200 in 38ms (next.js: 9ms, application-code: 29ms)
+ POST /api/jobs 201 in 268ms (next.js: 123ms, application-code: 144ms)
+ GET /api/notifications 200 in 33ms (next.js: 7ms, application-code: 26ms)
+✓ Compiled in 1874ms
+ GET /api/notifications 200 in 51ms (next.js: 8ms, application-code: 43ms)
+ GET / 200 in 219ms (next.js: 13ms, application-code: 205ms)
+ GET /verify 200 in 135ms (next.js: 18ms, application-code: 117ms)
+ GET /api/notifications 200 in 28ms (next.js: 7ms, application-code: 21ms)
+ GET /rep 200 in 128ms (next.js: 14ms, application-code: 114ms)
+ GET /api/notifications 200 in 41ms (next.js: 12ms, application-code: 29ms)
+ GET /rep/training 200 in 360ms (next.js: 208ms, application-code: 152ms)
+ GET /api/rep/profile 200 in 266ms (next.js: 38ms, application-code: 228ms)
+ GET /api/training/content 200 in 277ms (next.js: 230ms, application-code: 47ms)
+ GET /api/rep/profile 200 in 65ms (next.js: 15ms, application-code: 50ms)
+ GET /api/training/content 200 in 43ms (next.js: 11ms, application-code: 32ms)
+ GET /rep 200 in 324ms (next.js: 58ms, application-code: 266ms)
+ GET /api/notifications 200 in 56ms (next.js: 13ms, application-code: 42ms)
+ GET /rep/marketplace 200 in 286ms (next.js: 201ms, application-code: 85ms)
+ GET /api/marketplace 200 in 280ms (next.js: 219ms, application-code: 61ms)
+ GET /api/marketplace 200 in 50ms (next.js: 10ms, application-code: 40ms)
+ GET /rep/businesses 200 in 197ms (next.js: 108ms, application-code: 90ms)
+ GET /verify 200 in 106ms (next.js: 10ms, application-code: 96ms)
+ GET /map 200 in 240ms (next.js: 154ms, application-code: 86ms)
+ GET /api/map 200 in 145ms (next.js: 119ms, application-code: 26ms)
+ GET /api/map 200 in 40ms (next.js: 8ms, application-code: 32ms)
+[browser] ⨯ unhandledRejection: Error: Map container is already initialized.
+    at MapInner.useEffect (src/components/map-inner.tsx:59:21)
+  57 |       });
+  58 |
+> 59 |       const map = L.map(mapRef.current!).setView([36, -98], 4);
+     |                     ^
+  60 |       mapInstance.current = map;
+  61 |
+  62 |       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+ GET /rep/businesses 200 in 102ms (next.js: 12ms, application-code: 91ms)
+ GET /rep 200 in 176ms (next.js: 16ms, application-code: 160ms)
+ GET /api/notifications 200 in 36ms (next.js: 5ms, application-code: 30ms)
+ GET /api/notifications 200 in 39ms (next.js: 7ms, application-code: 33ms)
+ GET /api/notifications 200 in 34ms (next.js: 9ms, application-code: 25ms)
+ GET /api/notifications 200 in 26ms (next.js: 7ms, application-code: 18ms)
+ GET /api/notifications 200 in 72ms (next.js: 18ms, application-code: 55ms)
+ GET /api/notifications 200 in 28ms (next.js: 6ms, application-code: 22ms)
+ GET /api/notifications 200 in 25ms (next.js: 6ms, application-code: 19ms)
+ GET /api/notifications 200 in 27ms (next.js: 6ms, application-code: 21ms)
+ GET /api/notifications 200 in 27ms (next.js: 6ms, application-code: 21ms)
+ GET /api/notifications 200 in 31ms (next.js: 7ms, application-code: 24ms)
+ GET /api/notifications 200 in 27ms (next.js: 6ms, application-code: 20ms)
+ GET /api/notifications 200 in 26ms (next.js: 5ms, application-code: 21ms)
+ GET /api/notifications 200 in 25ms (next.js: 6ms, application-code: 20ms)
+ GET /api/notifications 200 in 25ms (next.js: 6ms, application-code: 19ms)
+ GET /api/notifications 200 in 27ms (next.js: 7ms, application-code: 20ms)
+ GET /api/notifications 200 in 25ms (next.js: 5ms, application-code: 19ms)
+ GET /api/notifications 200 in 24ms (next.js: 6ms, application-code: 18ms)
+ GET /api/notifications 200 in 24ms (next.js: 6ms, application-code: 18ms)
+ GET /api/notifications 200 in 28ms (next.js: 7ms, application-code: 22ms)
+ GET /api/notifications 200 in 25ms (next.js: 7ms, application-code: 18ms)
+ GET /api/notifications 200 in 25ms (next.js: 6ms, application-code: 19ms)
+ GET /api/notifications 200 in 25ms (next.js: 7ms, application-code: 18ms)
+ GET /api/notifications 200 in 27ms (next.js: 6ms, application-code: 21ms)
+ GET /api/notifications 200 in 25ms (next.js: 7ms, application-code: 19ms)
+ GET /api/notifications 200 in 25ms (next.js: 6ms, application-code: 18ms)
+ GET /api/notifications 200 in 24ms (next.js: 6ms, application-code: 18ms)
+ GET /api/notifications 200 in 27ms (next.js: 6ms, application-code: 21ms)
+ GET /api/notifications 200 in 30ms (next.js: 12ms, application-code: 18ms)
+ GET /api/notifications 200 in 23ms (next.js: 5ms, application-code: 18ms)
+ GET /api/notifications 200 in 25ms (next.js: 7ms, application-code: 19ms)
+ GET /api/notifications 200 in 39ms (next.js: 9ms, application-code: 29ms)
+ GET /api/notifications 200 in 44ms (next.js: 14ms, application-code: 30ms)
+ GET /api/notifications 200 in 34ms (next.js: 8ms, application-code: 26ms)
+ GET /api/notifications 200 in 32ms (next.js: 7ms, application-code: 24ms)
+ GET /api/notifications 200 in 37ms (next.js: 10ms, application-code: 27ms)
+ GET /api/notifications 200 in 35ms (next.js: 9ms, application-code: 27ms)
+ GET /api/notifications 200 in 74ms (next.js: 15ms, application-code: 59ms)
+ GET /api/notifications 200 in 30ms (next.js: 6ms, application-code: 24ms)
+ GET /api/notifications 200 in 28ms (next.js: 7ms, application-code: 20ms)
+ GET /api/notifications 200 in 31ms (next.js: 12ms, application-code: 18ms)
