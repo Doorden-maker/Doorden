@@ -7,7 +7,7 @@ import Stripe from "stripe";
 let stripe: Stripe | null = null;
 try {
   if (process.env.STRIPE_SECRET_KEY && !process.env.STRIPE_SECRET_KEY.startsWith("sk_test_your")) {
-    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-04-30.basil" });
+    stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2026-05-27.dahlia" });
   }
 } catch {}
 
