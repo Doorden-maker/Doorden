@@ -35,6 +35,7 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
     include: {
       rep: { include: { user: true } },
       business: { include: { user: true } },
+      commission: true,
     },
   });
   if (!job) return NextResponse.json({ error: "Not found" }, { status: 404 });
