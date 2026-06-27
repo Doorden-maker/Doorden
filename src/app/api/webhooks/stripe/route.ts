@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
     if (jobId) {
       const job = await prisma.job.findUnique({ where: { id: jobId } });
       if (job) {
-        const depositPaid = job.depositAmount || job.estimatedPrice * 0.1;
+        const depositPaid = job.depositAmount || job.estimatedPrice * 0.18;
         const platformFee = job.estimatedPrice * 0.06;
         const repAmount = job.estimatedPrice * 0.12;
         const businessNet = job.estimatedPrice * 0.82;

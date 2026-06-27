@@ -16,7 +16,7 @@ export default async function PaySuccessPage({ params }: { params: Promise<{ id:
         <h1 className="text-3xl font-bold text-gray-900 mb-3">Deposit Confirmed!</h1>
         <p className="text-gray-600 mb-6">
           Your deposit of{" "}
-          <strong>{job ? formatCurrency(job.depositAmount || job.estimatedPrice * 0.1) : ""}</strong>{" "}
+          <strong>{job ? formatCurrency(job.depositAmount || job.estimatedPrice * 0.18) : ""}</strong>{" "}
           has been received.
         </p>
         {job && (
@@ -31,7 +31,7 @@ export default async function PaySuccessPage({ params }: { params: Promise<{ id:
             </div>
             <div>
               <span className="text-sm text-gray-500">Remaining Balance</span>
-              <p className="font-medium">{formatCurrency(job.estimatedPrice - (job.depositAmount || job.estimatedPrice * 0.1))}</p>
+              <p className="font-medium">{formatCurrency(job.estimatedPrice - (job.depositAmount || job.estimatedPrice * 0.18))}</p>
               <p className="text-xs text-gray-400">Due directly to the business upon completion</p>
             </div>
           </div>

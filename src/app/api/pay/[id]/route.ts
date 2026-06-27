@@ -14,7 +14,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     return NextResponse.json({ error: "Job not available for payment" }, { status: 400 });
   }
 
-  const depositAmount = job.depositAmount || job.estimatedPrice * 0.1;
+  const depositAmount = job.depositAmount || job.estimatedPrice * 0.18;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
           currency: "usd",
           product_data: {
             name: `Service Deposit — ${job.serviceType}`,
-            description: `10% deposit for service at ${job.homeownerAddress}`,
+            description: `18% deposit for service at ${job.homeownerAddress}`,
           },
           unit_amount: Math.round(depositAmount * 100),
         },
